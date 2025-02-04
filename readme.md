@@ -3,13 +3,9 @@
 - **_I recommend to run this code in an IDE (pycharm, vscode, etc.) as I have not tested its commandline arguments._**
 
 ## Some Dependencies:
-1. torch
-2. torchvision
-3. dill
-4. argparse
-5. Whatever else raises an error :)
+1. TODO
 
-*Note these dependencies will have their own dependencies, so just install anything that causes an error :)*
+*Note these dependencies will have their own dependencies, so just install anything that causes an error*
 
 ## Project structure:
 ### argparser.py
@@ -31,42 +27,7 @@ model can be changed.
 - Loads the MNIST dataset or raises an error if not MNIST
 
 ### toyModel.py
-- This file contains the model definition with an option between architectures 1-4 and StoX or FP behavior
-- **Architecture 1**
-  1. Reduce image size to (14, 14) through average pooling
-  2. StoX/FP Conv1 (14, 14) to (10, 10)
-  3. StoX/FP Conv2 (10, 10) to (7, 7)
-  4. Reduce image size to (3, 3) through average pooling
-  5. FP Classifier (channels -> 10)
-- **Architecture 2**
-  1. Reduce image size to (14, 14) through average pooling
-  2. StoX/FP Conv1 (14, 14) to (10, 10)
-  3. StoX/FP Conv2 (10, 10) to (7, 7)
-  4. Reduce image size to (3, 3) through average pooling
-  5. StoX/FP Linear (channels * 9 -> 144)
-  6. FP Classifier (144 -> 10)
-- **Architecture 3**
-  1. Reduce image size to (14, 14) through average pooling
-  2. StoX/FP Conv1
-  3. StoX/FP Conv2
-  4. StoX/FP Conv3
-  5. Reduce image size to (3, 3) through average pooling
-  6. FP Classifier (channels * 9 -> 10)
-- **Architecture 4**
-  1. Reduce image size to (14, 14) through average pooling
-  2. StoX/FP Conv1
-  3. StoX/FP Conv2
-  4. StoX/FP Conv3
-  5. Reduce image size to (3, 3) through average pooling
-  6. StoX/FP Linear (channels * 9 -> 144)
-  7. FP Classifier (144 -> 10)
-- Other options
-  - _self.print_MTJops_andExit_ = True if you want to print the MTJ ops of one image
-    - Does not take into account _num_iterations_, though it can with a simple code change
-  - _self.StoX_ = bool determines whether the StoX/FP layers are StoX/FP
-- Notes
-  - Architectures 3 and 4 see **LARGE** increases in MTJ operations--I believe we should limit ourselves
-  to architectures 1 and 2
+- TODO
 
 ### StochasticLibQuan.py
 - This is the file that contains the meat of all performed stochastic operations
@@ -79,20 +40,12 @@ model can be changed.
   - To ensure functionality, this is kept at a 4-bit input and 8 iterations
   - Follows logic of linear representation
   - Maps the operation to sequential MVM of subarrays
+  
 ### WeightQuantization.py
 - Contains quantization functions for weights, barebones 1-bit implementation
+
 ### InputQuantization.py
 - Contains 1-bit and multi-bit quantization for inputs
 
-### MTJQuantization.py
-- THIS FILE CONTAINS A TODO. Implement the MATLAB interface here!
-  - You will retain the backward part of the function (it is a STE)
-  - The forward will be replaced by MATLAB equivalent of MTJ sampling
-
 ## Notes
-- The training time for a model is extremely short, so you can adjust some parameters and alter your save directories
-to see what happens.
-- I recommend architectures 1 or 2! 2 is probably the best with its tradeoffs and rewards
-  - The MTJ operations will be approximately 9000 with architectures 1 and 2 not counting iterations
-  - I have included a trained **Architecture 2** with _subarray_size = 256_
-- Accuracy should be at leas 85% with chosen models, if it's below this value then don't use it!
+- TODO

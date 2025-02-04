@@ -22,7 +22,6 @@ class WeightQuantize(Function):
 
     @staticmethod
     def backward(ctx, grad_output):
-        # Implement straight through estimator (STE) (maybe clamp on ends?)
         return grad_output, None
 
 

@@ -21,7 +21,6 @@ class StoX_MTJ(nn.Module):
 
     def forward(self, input_tens):
         # normed_input = input_tens / self.constrictor
-        # normed_input = normed_input.clamp(-2, 2)
         normed_input = self.bn(input_tens).clamp(-1, 1)
         out = MTJInstance().apply(normed_input, self.sensitivity)
         return out
@@ -142,7 +141,6 @@ class StoX_Conv2d(nn.Module):
         w = self.weight
         bw = w - w.view(w.size(0), -1).mean(-1).view(w.size(0), 1, 1, 1)
         bw = bw / bw.view(bw.size(0), -1).std(-1).view(bw.size(0), 1, 1, 1)
-        # qw = quantize_STE_floor_ceil(bw, self.w_bits_per_slice)
         qw = WeightQuantize().apply(bw, self.w_bits_per_slice)
 
         a = F.unfold(inputs, self.kernel_size, self.dilation, self.padding, self.stride)
@@ -156,5 +154,4 @@ class StoX_Conv2d(nn.Module):
 
         conv_stoch_out = self.StoX_hardware_Conv(qa, qw, self.bias, self.stride, self.padding, self.dilation, self.groups)
 
-        # print(conv_stoch_out.grad)
         return conv_stoch_out
